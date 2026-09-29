@@ -13,6 +13,7 @@ import {
   CursorAdapterV2Driver,
   type CursorAdapterV2DriverEnv,
 } from "./Adapters/CursorAdapterV2.ts";
+import { DroidAdapterV2Driver, type DroidAdapterV2DriverEnv } from "./Adapters/DroidAdapterV2.ts";
 import { GrokAdapterV2Driver, type GrokAdapterV2DriverEnv } from "./Adapters/GrokAdapterV2.ts";
 import {
   OpenCodeAdapterV2Driver,
@@ -26,6 +27,7 @@ export type BuiltInProviderAdapterDriversV2Env =
   | ClaudeAdapterV2DriverEnv
   | CodexAdapterV2DriverEnv
   | CursorAdapterV2DriverEnv
+  | DroidAdapterV2DriverEnv
   | GrokAdapterV2DriverEnv
   | OpenCodeAdapterV2DriverEnv
   | PiAdapterV2DriverEnv;
@@ -39,6 +41,7 @@ const BUILT_IN_PROVIDER_ADAPTER_DRIVERS_V2: ReadonlyArray<
   OpenCodeAdapterV2Driver,
   GrokAdapterV2Driver,
   PiAdapterV2Driver,
+  DroidAdapterV2Driver,
   AcpRegistryAdapterV2Driver,
 ];
 

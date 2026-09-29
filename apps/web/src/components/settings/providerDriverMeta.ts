@@ -4,6 +4,7 @@ import {
   ClaudeSettings,
   CodexSettings,
   CursorSettings,
+  DroidSettings,
   GrokSettings,
   OpenCodeSettings,
   PiSettings,
@@ -91,6 +92,21 @@ const PROVIDER_CLIENT_DEFINITIONS: readonly ProviderClientDefinition[] = [
     label: "Pi",
     badgeLabel: "Early Access",
     settingsSchema: PiSettings,
+  },
+  {
+    value: ProviderDriverKind.make("droid"),
+    label: "Droid",
+    badgeLabel: "Early Access",
+    settingsSchema: DroidSettings,
+    environmentFields: [
+      {
+        name: "FACTORY_API_KEY",
+        label: "Factory API key",
+        description: "Optional. Overrides the Factory account signed in through `droid`.",
+        placeholder: "Paste API key",
+        sensitive: true,
+      },
+    ],
   },
   {
     value: ProviderDriverKind.make("acpRegistry"),
