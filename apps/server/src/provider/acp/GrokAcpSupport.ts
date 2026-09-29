@@ -20,6 +20,7 @@ import { makeXAiPromptCompletionRuntime } from "./XAiAcpExtension.ts";
 
 const GROK_API_KEY_ENV = "XAI_API_KEY";
 const GROK_OAUTH2_REFERRER_ENV = "GROK_OAUTH2_REFERRER";
+const GROK_MANAGED_MCPS_ENABLED_ENV = "GROK_MANAGED_MCPS_ENABLED";
 const T3_CODE_OAUTH_REFERRER = "t3code";
 const GROK_AUTH_METHOD_API_KEY = "xai.api_key";
 const GROK_AUTH_METHOD_CACHED_TOKEN = "cached_token";
@@ -66,6 +67,11 @@ export function grokAcpSpawnArgs(runtimeMode?: RuntimeMode): ReadonlyArray<strin
   }
 }
 
+/**
+ * Spawn input for `grok agent stdio`. Grok leaves grok.com connectors (Notion, GitHub, ...) off
+ * in agent mode unless managed MCPs are enabled, so default that on. An explicit
+ * `GROK_MANAGED_MCPS_ENABLED` in the environment still wins.
+ */
 export function buildGrokAcpSpawnInput(
   grokSettings: GrokAcpRuntimeGrokSettings | null | undefined,
   cwd: string,
@@ -77,6 +83,7 @@ export function buildGrokAcpSpawnInput(
     args: [...grokAcpSpawnArgs(runtimeMode)],
     cwd,
     env: {
+      [GROK_MANAGED_MCPS_ENABLED_ENV]: "true",
       ...environment,
       [GROK_OAUTH2_REFERRER_ENV]: T3_CODE_OAUTH_REFERRER,
     },

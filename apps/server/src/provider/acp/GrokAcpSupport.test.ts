@@ -84,10 +84,18 @@ describe("buildGrokAcpSpawnInput", () => {
       args: ["agent", "stdio"],
       cwd: "/tmp/project",
       env: {
+        GROK_MANAGED_MCPS_ENABLED: "true",
         XAI_API_KEY: "secret",
         GROK_OAUTH2_REFERRER: "t3code",
       },
     });
+  });
+
+  it("enables grok.com connectors unless the environment opts out", () => {
+    const spawn = buildGrokAcpSpawnInput(undefined, "/tmp/project", {
+      GROK_MANAGED_MCPS_ENABLED: "false",
+    });
+    expect(spawn.env?.GROK_MANAGED_MCPS_ENABLED).toBe("false");
   });
 
   it("puts Supervised on the Grok argv so config always-approve cannot win", () => {
